@@ -61,3 +61,11 @@ Dieses Repository ist eng mit den offiziellen Open-Source-Dokumentationen von Gi
 
 * **Offizielles GitHub Docs Repository:** [github.com/github/docs](https://github.com/github/docs) – Hier findest du den vollständigen Quellcode und die Markdown-Dateien, mit denen GitHub seine offizielle Hilfe betreibt.
 * **Öffentliche GitHub Hilfe:** [docs.github.com](https://docs.github.com) – Die Live-Ansicht für alle Anleitungen zu Workflows, Sicherheitsfeatures und Account-Einstellungen.
+
+---
+
+## 4. Struktur der Dokumentation
+
+Hier definieren wir die Ablage für spezifische Anleitungen:
+* `/docs` – Lokale Ablage für eigene Schritt-für-Schritt-Anleitungen und Sicherheits-Workflows.
+* Offizielle externe Referenzen (wie [GitHub Docs](https://docs.github.com)) für standardisierte Prozesse.
