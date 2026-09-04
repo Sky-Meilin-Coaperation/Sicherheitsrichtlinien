@@ -52,3 +52,12 @@ Da du mit Git und Repositories arbeiten wirst, richten wir die grundlegende Umge
 2. **Prüfen, ob Git bereit ist:**
    ```bash
    git --version
+
+---
+
+## 3. Offizielle GitHub Open-Source-Dokumentation
+
+Dieses Repository ist eng mit den offiziellen Open-Source-Dokumentationen von GitHub verknüpft, um direkten Zugriff auf alle standardisierten Anleitungen zu haben:
+
+* **Offizielles GitHub Docs Repository:** [github.com/github/docs](https://github.com/github/docs) – Hier findest du den vollständigen Quellcode und die Markdown-Dateien, mit denen GitHub seine offizielle Hilfe betreibt.
+* **Öffentliche GitHub Hilfe:** [docs.github.com](https://docs.github.com) – Die Live-Ansicht für alle Anleitungen zu Workflows, Sicherheitsfeatures und Account-Einstellungen.
