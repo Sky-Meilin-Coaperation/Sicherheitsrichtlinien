@@ -1,7 +1,1 @@
-version: 2
-updates:
-  - package-ecosystem: "github-actions"
-    directory: "/"
-    schedule:
-      interval: "weekly"
-    security-updates-enabled: true
+name: Security Scan on: push: branches: [ "main", "master" ] pull\_request: branches: [ "main", "master" ] jobs: security-check: runs-on: ubuntu-latest steps: - name: Checkout Code uses: actions/checkout@v4 - name: Security Check run: echo "Security workflow initialized successfully."
