@@ -1,1 +1,27 @@
-name: Security Scan on: push: branches: [ "main", "master" ] pull\_request: branches: [ "main", "master" ] jobs: security-check: runs-on: ubuntu-latest steps: - name: Checkout Code uses: actions/checkout@v4 - name: Security Check run: echo "Security workflow initialized successfully."
+name: Security Scan
+
+on:
+  push:
+    branches: ["main", "master"]
+  pull_request:
+    branches: ["main", "master"]
+
+jobs:
+  security-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Run Trivy filesystem scan
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: 'fs'
+          scan-ref: '.'
+          format: 'sarif'
+          output: 'trivy-results.sarif'
+
+      - name: Upload Trivy scan results to GitHub Security tab
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: 'trivy-results.sarif'
