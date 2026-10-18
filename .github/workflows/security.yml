@@ -1,7 +1,41 @@
-version: 2
-updates:
-  - package-ecosystem: "github-actions"
-    directory: "/"
-    schedule:
-      interval: "weekly"
-    security-updates-enabled: true
+name: SQLite Cloud DocSearch Sync
+
+on:
+  push:
+    branches:
+      - main  # Passt an, bei welchen Branches der Workflow laufen soll
+
+jobs:
+  docsearch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Repository auschecken
+        uses: actions/checkout@v4
+
+      - name: SQLite Cloud - Docs Search Sync
+        uses: sqlitecloud/docsearch-action@v6
+        with:
+          # Der SQLite Cloud Connection String (am besten in GitHub Secrets hinterlegen!)
+          project-string: ${{ secrets.SQLITE_CLOUD_PROJECT_STRING }}
+          
+          # Die Basis-URL deiner Dokumentations-Website
+          base-url: "https://deine-webseite.de"
+          
+          # Name der Datenbank auf SQLite Cloud (wichtig: muss vorher angelegt sein!)
+          database: "docs_db"
+          
+          # Optional: Verzeichnis der Markdown-Dateien (Standard ist das Root-Verzeichnis)
+          path: "."
+          
+          # HTML/JSX-Elemente bereinigen für saubere Suche
+          strip-html: "true"
+          strip-jsx: "true"
+          
+          # Verhindert redundante Titel in den Suchergebnissen
+          strip-md-titles: "true"
+          
+          # Konvertiert Front Matter automatisch zu JSON und überträgt es
+          use-front-matter: "true"
+          
+          # Nutzt Slugs im Header als Pfad statt relative Pfade
+          path-using-slug: "false"
