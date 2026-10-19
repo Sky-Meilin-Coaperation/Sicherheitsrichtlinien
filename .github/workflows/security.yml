@@ -5,6 +5,9 @@ on:
     branches:
       - main  # Passt an, bei welchen Branches der Workflow laufen soll
 
+permissions:
+  contents: read
+
 jobs:
   docsearch:
     runs-on: ubuntu-latest
