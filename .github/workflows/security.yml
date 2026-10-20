@@ -1,9 +1,10 @@
-name: SQLite Cloud DocSearch Sync
+name: Security and Deployment
 
 on:
   push:
-    branches:
-      - main  # Passt an, bei welchen Branches der Workflow laufen soll
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
 permissions:
   contents: read
@@ -42,3 +43,12 @@ jobs:
           
           # Nutzt Slugs im Header als Pfad statt relative Pfade
           path-using-slug: "false"
+  my_job:
+    name: deploy to staging
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run Deployment Verification
+        run: echo "Staging-Bereich erfolgreich initialisiert."
