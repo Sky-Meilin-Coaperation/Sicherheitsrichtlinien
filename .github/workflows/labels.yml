@@ -1,7 +1,3 @@
-
-# Copyright (c) Microsoft Corporation.
-# Licensed under the MIT License.
-
 name: Verify PR Labels
 
 on:
@@ -17,6 +13,7 @@ jobs:
     name: Test on node ${{ matrix.node_version }} and ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     strategy:
+      fail-fast: false
       matrix:
         node_version: ['18.x', '20.x']
         os: [ubuntu-latest, windows-latest, macOS-latest]
