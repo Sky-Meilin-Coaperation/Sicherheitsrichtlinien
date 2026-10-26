@@ -50,7 +50,7 @@ jobs:
           cache: true
 
       - name: Set up Gradle
-        if: matrix.language == 'java-kotlin'
+        if: matrix.language == 'gradle/actions/setup-gradle@v4'
         uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: "9.3.1"
@@ -73,3 +73,5 @@ jobs:
 
       - name: Perform CodeQL analysis
         uses: github/codeql-action/analyze@v4
+        with:
+          category: "/language:${{ matrix.language }}"
