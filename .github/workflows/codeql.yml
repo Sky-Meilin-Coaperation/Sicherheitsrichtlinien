@@ -30,7 +30,7 @@ jobs:
           - language: python
             build-mode: none
           - language: java-kotlin
-            build-mode: none
+            build-mode: manual
 
     steps:
       - name: Check out repository
@@ -50,6 +50,12 @@ jobs:
           channel: stable
           cache: true
 
+      - name: Set up Gradle
+        if: matrix.language == 'java-kotlin'
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: "9.3.1"
+
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v4
         with:
@@ -68,3 +74,5 @@ jobs:
 
       - name: Perform CodeQL analysis
         uses: github/codeql-action/analyze@v4
+        with:
+          category: "/language:${{ matrix.language }}"
