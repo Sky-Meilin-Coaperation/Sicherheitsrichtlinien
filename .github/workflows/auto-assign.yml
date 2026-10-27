@@ -1,5 +1,9 @@
 name: Auto Assign Workflow
 
+permissions:
+  pull-requests: write
+  issues: write
+
 on:
   pull_request:
     types: [opened, synchronize, reopened, ready_for_review]
@@ -13,3 +17,4 @@ jobs:
         uses: actions/auto-assign-action@v1.2.5
         with:
           configuration-path: '.github/auto_assign.yml'
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
