@@ -1,21 +1,15 @@
-name: Auto Assign
+name: Auto Assign Workflow
+
 on:
   pull_request:
-    branches:
-      - main
-    types: [opened]
-  pull_request:
-    types: [opened]
+    types: [opened, synchronize, reopened, ready_for_review]
+    branches: [main, master]
+
 jobs:
-  run:
+  auto-assign:
     runs-on: ubuntu-latest
-    permissions:
-      issues: write
-      pull-requests: write
     steps:
-    - name: 'Auto-assign issue'
-      uses: pozil/auto-assign-issue@v1
-      with:
-          repo-token: 
-          assignees: SkyMeilin
-          numOfAssignee: 1
+      - name: Run Auto Assign Action
+        uses: actions/auto-assign-action@v1.2.5
+        with:
+          configuration-path: '.github/auto_assign.yml'
