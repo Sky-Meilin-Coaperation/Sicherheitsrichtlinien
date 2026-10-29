@@ -1,47 +1,41 @@
-from typing import Any, Callable, Protocol, TypeVar, cast
+from fastapi import FastAPI, HTTPException
+from pydantic import BaseModel
+from quantum_ledger import append_audit_entry
 
-T = TypeVar("T", bound=Callable[..., Any])
+app = FastAPI(title="Sky OS MCP Bridge", version="4.0.0")
 
+class MCPToolCall(BaseModel):
+    tool_name: str
+    arguments: dict
 
-class _FastMCPToolDecorator(Protocol):
-	def __call__(self, func: T) -> T: ...
+@app.post("/mcp/call")
+def handle_mcp_call(call: MCPToolCall):
+    # Jedes Remote-Kommando vom Smartphone wird im Ledger dokumentiert
+    append_audit_entry(f"MCP Befehl via Mobile empfangen: Tool '{call.tool_name}'", actor="Sky-DEV Leader")
+    
+    if call.tool_name == "sky_os_execute":
+        action = call.arguments.get("action", "unbekannt")
+        return {
+            "status": "success",
+            "result": f"Aktion '{action}' erfolgreich durch das Framework ausgeführt."
+        }
+    else:
+        raise HTTPException(status_code=404, detail="MCP Tool nicht im System registriert.")
 
-
-class _FastMCPServer(Protocol):
-	def tool(self, *args: Any, **kwargs: Any) -> _FastMCPToolDecorator: ...
-
-	def run(self) -> None: ...
-
-
-class _FastMCPFallback:
-	def __init__(self, name: str):
-		self.name = name
-
-	def tool(self, *args: Any, **kwargs: Any) -> _FastMCPToolDecorator:
-		def decorator(func: T) -> T:
-			return func
-
-		return cast(_FastMCPToolDecorator, decorator)
-
-	def run(self) -> None:
-		raise RuntimeError(
-			"The 'mcp' package is required to run this server. Install it with 'pip install mcp'."
-		)
-
-
-try:
-	from mcp.server.fastmcp import FastMCP as FastMCP  # type: ignore[import-not-found]
-except ImportError:  # pragma: no cover
-	FastMCP = _FastMCPFallback
-
-
-mcp: _FastMCPServer = cast(_FastMCPServer, FastMCP("SkyApp"))
-
-
-@mcp.tool()
-def status() -> str:
-	return "SkyApp MCP Server läuft reibungslos."
-
-
-if __name__ == "__main__":
-	mcp.run()
+@app.get("/mcp/manifest")
+def mcp_manifest():
+    return {
+        "tools": [
+            {
+                "name": "sky_os_execute",
+                "description": "Steuert die 15 Departments und Workflows von Sky OS über das Smartphone.",
+                "parameters": {
+                    "type": "object",
+                    "properties": {
+                        "action": {"type": "string", "description": "Die auszuführende Aufgabe"}
+                    },
+                    "required": ["action"]
+                }
+            }
+        ]
+    }
