@@ -1,0 +1,16 @@
+# Runtime Python
+.venv/
+.venv-1/
+__pycache__/
+*.pyc
+*.pyo
+*.log
+Thumbs.db
+.DS_Store
+.idea/
+.vscode/*
+node_modules/
+
+# Local environment variables
+.env
+.env.local
