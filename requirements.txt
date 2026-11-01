@@ -1,4 +1,11 @@
-torch
-gradio
-huggingface_hub
-spaces
+fastapi>=0.110.0
+uvicorn[standard]>=0.27.0
+pydantic>=2.0.0
+gitpython>=3.1.0
+requests>=2.31.0
+python-multipart>=0.0.6
+pydantic-settings>=2.0.0
+torch>=2.3.0
+transformers>=4.40.0
+gradio>=3.49.0
+huggingface-hub>=0.23.0
