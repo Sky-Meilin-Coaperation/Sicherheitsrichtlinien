@@ -59,6 +59,7 @@ pinned: false
 """
 
     readme_content = f"""{hf_header}
+
 # 🎛️ JoyAI Orchester – Control Center & Dashboard
 
 > **Automatisch generierte Dokumentation**  
