@@ -1,5 +1,8 @@
 name: Next.js Cache & Build
 
+permissions:
+  contents: read
+
 on:
   push:
     branches: [ main, master ]
